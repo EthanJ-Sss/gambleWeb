@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 对战竞猜平台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题栏 -->
+        <header class="header">
+            <h1>🎮 对战竞猜平台</h1>
+            <div class="header-actions">
+                <button class="btn btn-success" onclick="showCreateBetModal()">🎯 创建竞猜</button>
+                <button class="btn btn-primary" onclick="showAddUserModal()">➕ 添加用户</button>
+                <button class="btn btn-warning" onclick="resetAllPoints()">🔄 重置积分</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 左侧：竞猜区域 -->
+            <section class="betting-section">
+                <div id="activeBetsContainer">
+                    <div class="no-bet-message">
+                        <p>🎯 暂无进行中的竞猜</p>
+                        <button class="btn btn-success btn-large" onclick="showCreateBetModal()">创建新竞猜</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 右侧：排行榜 -->
+            <aside class="leaderboard-section">
+                <div class="leaderboard-card">
+                    <h3>🏆 积分排行榜</h3>
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <p class="empty-message">暂无用户</p>
+                    </div>
+                </div>
+
+                <!-- 用户列表 -->
+                <div class="users-card">
+                    <h3>👥 用户列表</h3>
+                    <div class="users-list" id="usersList">
+                        <p class="empty-message">暂无用户</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- 对赌区域 -->
+        <section class="duel-section">
+            <div class="duel-header">
+                <h3>🎭 对赌区</h3>
+                <button class="btn btn-primary" onclick="showCreateDuelModal()">➕ 创建对赌</button>
+            </div>
+            <div class="duel-list" id="duelList">
+                <p class="empty-message">暂无对赌</p>
+            </div>
+        </section>
+
+        <!-- 历史记录 -->
+            <h3>📜 历史竞猜记录</h3>
+            <div class="history-list" id="historyList">
+                <p class="empty-message">暂无历史记录</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- 模态框：添加用户 -->
+    <div class="modal" id="addUserModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>➕ 添加用户</h3>
+                <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <form onsubmit="addUser(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="newUserName" required placeholder="输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>初始积分（默认1000）</label>
+                    <input type="number" id="newUserPoints" value="1000" min="0">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">确认添加</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态框：创建竞猜 -->
+    <div class="modal" id="createBetModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>🎯 创建新竞猜</h3>
+                <button class="modal-close" onclick="closeModal('createBetModal')">&times;</button>
+            </div>
+            <form onsubmit="createBets(event)">
+                <!-- 关卡选择 -->
+                <div class="form-group">
+                    <label>选择关卡</label>
+                    <select id="stageSelect" onchange="updatePresetBets()">
+                    </select>
+                </div>
+
+                <!-- 预设竞猜 -->
+                <div class="form-group">
+                    <label>预设竞猜内容</label>
+                    <div class="preset-actions">
+                        <button type="button" class="btn btn-secondary btn-small" onclick="selectAllBets()">全选</button>
+                        <button type="button" class="btn btn-secondary btn-small" onclick="deselectAllBets()">全不选</button>
+                        <button type="button" class="btn btn-primary btn-small" onclick="randomSelectBet()">🎲 随机1个</button>
+                        <button type="button" class="btn btn-success btn-small" onclick="randomSelectThreeBets()">🎲 随机3个</button>
+                    </div>
+                    <div id="presetBetsContainer" class="preset-bets-container">
+                    </div>
+                </div>
+
+                <!-- 分隔线 -->
+                <div class="form-divider">
+                    <span>或者添加自定义竞猜</span>
+                </div>
+
+                <!-- 自定义竞猜 -->
+                <div class="form-group">
+                    <label>自定义竞猜标题（可选）</label>
+                    <input type="text" id="customBetTitle" placeholder="例如：是否触发某个事件">
+                </div>
+                <div class="form-group">
+                    <label>自定义选项</label>
+                    <div id="customOptionsContainer">
+                        <div class="option-row">
+                            <input type="text" placeholder="选项名称" class="option-name">
+                            <input type="number" step="0.01" min="1" placeholder="赔率" class="option-odds">
+                            <button type="button" class="btn btn-danger btn-small" onclick="removeOption(this)">✕</button>
+                        </div>
+                        <div class="option-row">
+                            <input type="text" placeholder="选项名称" class="option-name">
+                            <input type="number" step="0.01" min="1" placeholder="赔率" class="option-odds">
+                            <button type="button" class="btn btn-danger btn-small" onclick="removeOption(this)">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-small" onclick="addOption()">➕ 添加选项</button>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block btn-large">创建竞猜</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态框：结算 -->
+    <div class="modal" id="settleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🏁 结算竞猜</h3>
+                <button class="modal-close" onclick="closeModal('settleModal')">&times;</button>
+            </div>
+            <input type="hidden" id="settleBetId">
+            <p class="settle-bet-title" id="settleTitle"></p>
+            <div class="form-group">
+                <label>选择正确结果</label>
+                <div id="settleOptions"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框：创建对赌 -->
+    <div class="modal" id="createDuelModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>🎭 创建对赌</h3>
+                <button class="modal-close" onclick="closeModal('createDuelModal')">&times;</button>
+            </div>
+            <form onsubmit="createDuel(event)">
+                <div class="form-group">
+                    <label>选择关卡</label>
+                    <select id="duelStageSelect" onchange="updateDuelBets()">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>对赌内容</label>
+                    <select id="duelBetSelect" onchange="updateDuelOptions()">
+                    </select>
+                </div>
+                
+                <div class="duel-players">
+                    <div class="duel-player-card">
+                        <h4>👤 玩家A</h4>
+                        <div class="form-group">
+                            <label>选择用户</label>
+                            <select id="duelPlayer1" required>
+                                <option value="">-- 选择 --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>选择立场</label>
+                            <select id="duelOption1" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>下注积分</label>
+                            <input type="number" id="duelAmount1" min="1" required placeholder="输入积分">
+                        </div>
+                    </div>
+                    
+                    <div class="duel-vs">VS</div>
+                    
+                    <div class="duel-player-card">
+                        <h4>👤 玩家B</h4>
+                        <div class="form-group">
+                            <label>选择用户</label>
+                            <select id="duelPlayer2" required>
+                                <option value="">-- 选择 --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>选择立场</label>
+                            <select id="duelOption2" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>下注积分</label>
+                            <input type="number" id="duelAmount2" min="1" required placeholder="输入积分">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success btn-block btn-large">创建对赌</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态框：结算对赌 -->
+    <div class="modal" id="settleDuelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🏁 结算对赌</h3>
+                <button class="modal-close" onclick="closeModal('settleDuelModal')">&times;</button>
+            </div>
+            <input type="hidden" id="settleDuelId">
+            <p class="settle-bet-title" id="settleDuelTitle"></p>
+            <div class="duel-settle-info" id="settleDuelInfo"></div>
+            <div class="form-group">
+                <label>选择正确结果</label>
+                <div id="settleDuelOptions"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

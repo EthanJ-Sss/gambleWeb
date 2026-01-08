@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 庄家端 - 对战竞猜平台</title>
+    <link rel="stylesheet" href="/client/shared/common.css">
+    <link rel="stylesheet" href="/client/dealer/dealer.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Create Room View -->
+        <div id="createRoomView" class="view">
+            <div class="create-room-container">
+                <h1>🎮 对战竞猜平台</h1>
+                <h2>庄家控制台</h2>
+                <div class="form-group">
+                    <label class="form-label">庄家名称</label>
+                    <input type="text" id="dealerName" class="form-input" placeholder="输入您的名称" value="庄家">
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" onclick="createRoom()">
+                    🚀 创建房间
+                </button>
+            </div>
+        </div>
+
+        <!-- Room View -->
+        <div id="roomView" class="view" style="display: none;">
+            <!-- Header -->
+            <div class="header">
+                <h1>🎮 庄家控制台</h1>
+                <div class="header-info">
+                    <span class="header-badge">房间码: <strong id="roomCode">------</strong></span>
+                    <span class="header-badge">状态: <span id="roomStatus">活跃</span></span>
+                    <span class="header-badge">轮次: <span id="roundNumber">0</span></span>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-grid">
+                <!-- Left Panel: Betting Control -->
+                <div class="left-panel">
+                    <!-- Current Bet Status -->
+                    <div class="card" id="betStatusCard">
+                        <div class="card-header">
+                            <span class="card-title">🎯 当前竞猜</span>
+                            <span class="status-badge status-idle" id="betPhaseStatus">空闲</span>
+                        </div>
+                        <div id="currentBetInfo">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📋</div>
+                                <p>暂无进行中的竞猜</p>
+                                <button class="btn btn-success btn-lg" onclick="openModal('createBetModal')">
+                                    🎯 创建竞猜
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wager Monitor -->
+                    <div class="card" id="wagerMonitorCard" style="display: none;">
+                        <div class="card-header">
+                            <span class="card-title">📊 下注监控</span>
+                            <span id="wagerCount">0/0 人已下注</span>
+                        </div>
+                        <div id="optionsDistribution"></div>
+                        <div class="bet-stats">
+                            <div>总下注池: <strong id="totalPool">0</strong> 分</div>
+                        </div>
+                        <div class="wager-feed" id="wagerFeed"></div>
+                    </div>
+
+                    <!-- Bet Controls -->
+                    <div class="card" id="betControlCard" style="display: none;">
+                        <div class="flex gap-md">
+                            <button class="btn btn-warning btn-lg" id="lockBtn" onclick="lockBetting()">
+                                🔒 封盘
+                            </button>
+                            <button class="btn btn-success btn-lg" id="settleBtn" onclick="openSettleModal()" style="display: none;">
+                                🏁 结算
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Players -->
+                <div class="right-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">👥 玩家列表</span>
+                            <span id="playerCount">0 人在线</span>
+                        </div>
+                        <div class="player-list" id="playerList">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">👤</div>
+                                <p>等待玩家加入...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">⚡ 快捷操作</span>
+                        </div>
+                        <div class="flex flex-wrap gap-sm">
+                            <button class="btn btn-primary" onclick="openModal('createBetModal')">🎯 创建竞猜</button>
+                            <button class="btn btn-secondary" onclick="openModal('historyModal')">📜 历史记录</button>
+                            <button class="btn btn-danger" onclick="confirmCloseRoom()">🔚 关闭房间</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Ranking View -->
+        <div id="finalView" class="view" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🏆 本场游戏结束 - 最终排名</span>
+                </div>
+                <div id="finalStats"></div>
+                <table class="ranking-table" id="finalRankingTable"></table>
+                <div class="flex-center" style="margin-top: 24px;">
+                    <button class="btn btn-primary btn-lg" onclick="location.reload()">🆕 开始新房间</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Bet Modal -->
+    <div class="modal-overlay" id="createBetModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">🎯 创建新竞猜</span>
+                <button class="modal-close" onclick="closeModal('createBetModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">选择关卡</label>
+                <select id="stageSelect" class="form-select" onchange="updatePresetBets()">
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">选择竞猜内容</label>
+                <div id="presetBetsContainer"></div>
+            </div>
+            <div class="flex gap-sm" style="margin-bottom: 16px;">
+                <button class="btn btn-secondary btn-sm" onclick="selectRandomBet(1)">🎲 随机1个</button>
+                <button class="btn btn-secondary btn-sm" onclick="selectRandomBet(3)">🎲 随机3个</button>
+                <button class="btn btn-secondary btn-sm" onclick="selectAllBets()">✅ 全选</button>
+            </div>
+            <button class="btn btn-success btn-lg btn-block" onclick="createBet()">
+                🚀 开盘（开始接受下注）
+            </button>
+        </div>
+    </div>
+
+    <!-- Settle Modal -->
+    <div class="modal-overlay" id="settleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">🏁 结算竞猜</span>
+                <button class="modal-close" onclick="closeModal('settleModal')">&times;</button>
+            </div>
+            <p id="settleBetTitle"></p>
+            <div class="form-group">
+                <label class="form-label">选择正确结果</label>
+                <div id="settleOptions" class="bet-options"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">📜 历史记录</span>
+                <button class="modal-close" onclick="closeModal('historyModal')">&times;</button>
+            </div>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/shared/socket-client.js"></script>
+    <script src="/client/shared/utils.js"></script>
+    <script src="/client/dealer/dealer.js"></script>
+</body>
+</html>

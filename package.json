@@ -1,0 +1,18 @@
+{
+  "name": "gamble-platform",
+  "version": "1.0.0",
+  "description": "Multi-player betting platform with dealer and player clients",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "keywords": ["betting", "multiplayer", "socket.io"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.0"
+  }
+}

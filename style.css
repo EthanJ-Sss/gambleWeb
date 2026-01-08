@@ -1,0 +1,1095 @@
+/* ===== 基础变量 ===== */
+:root {
+    --bg-dark: #0f0f1a;
+    --bg-card: #1a1a2e;
+    --bg-card-hover: #252540;
+    --accent-gold: #ffd700;
+    --accent-purple: #9d4edd;
+    --accent-blue: #4cc9f0;
+    --accent-green: #06d6a0;
+    --accent-red: #ef476f;
+    --accent-orange: #ff9f1c;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --text-muted: #606070;
+    --border-color: #2a2a4a;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --radius: 12px;
+    --radius-small: 8px;
+}
+
+/* ===== 全局样式 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #16213e 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===== 头部 ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.header h1 {
+    font-size: 28px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* ===== 按钮 ===== */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radius-small);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-purple), #7b2cbf);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--accent-green), #059669);
+    color: white;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--accent-red), #dc2626);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--accent-orange), #d97706);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--bg-card-hover);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-block {
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 18px;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+/* ===== 主内容布局 ===== */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* ===== 竞猜卡片 ===== */
+.bet-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.bet-card .bet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bet-card .bet-header h3 {
+    font-size: 20px;
+    color: var(--text-primary);
+}
+
+.bet-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-green), #059669);
+    color: white;
+}
+
+/* ===== 竞猜选项 ===== */
+.bet-options,
+.bet-options-clickable {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.bet-option-card {
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    padding: 16px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.bet-option-card:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-2px);
+}
+
+.bet-option-card.clickable {
+    cursor: pointer;
+}
+
+.bet-option-card.clickable:hover {
+    border-color: var(--accent-blue);
+    background: rgba(76, 201, 240, 0.1);
+}
+
+.bet-option-card.selected {
+    border-color: var(--accent-green) !important;
+    background: rgba(6, 214, 160, 0.15) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(6, 214, 160, 0.3);
+}
+
+.bet-option-card.selected .bet-option-name {
+    color: var(--accent-green);
+}
+
+.bet-option-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.bet-option-odds {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.bet-option-total {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* ===== 新版下注表单 ===== */
+.wager-form-new {
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.wager-user-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.wager-user-row label {
+    font-weight: 600;
+    color: var(--accent-blue);
+    white-space: nowrap;
+}
+
+.wager-user-row select {
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    color: var(--text-primary);
+    font-size: 14px;
+    min-width: 200px;
+}
+
+.wager-user-row select:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+}
+
+.selected-user-display {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.selected-user-display.active {
+    color: var(--accent-green);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ===== 积分确认区域 ===== */
+.wager-amount-row {
+    background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(76, 201, 240, 0.1));
+    border: 2px solid var(--accent-green);
+    border-radius: var(--radius-small);
+    padding: 16px;
+    margin-bottom: 16px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wager-confirm-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: var(--text-primary);
+    justify-content: center;
+}
+
+.wager-confirm-info strong {
+    color: var(--accent-gold);
+}
+
+.wager-amount-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.wager-amount-input label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.wager-amount-input input {
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-gold);
+    border-radius: var(--radius-small);
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+    width: 120px;
+    text-align: center;
+}
+
+.wager-amount-input input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
+}
+
+/* ===== 下注表单（内嵌） ===== */
+.wager-form {
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.wager-form h4 {
+    font-size: 14px;
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+}
+
+.wager-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 100px auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.wager-form-row select,
+.wager-form-row input {
+    padding: 10px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.wager-form-row select:focus,
+.wager-form-row input:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+}
+
+/* ===== 下注列表 ===== */
+.wagers-list {
+    margin-bottom: 16px;
+}
+
+.wagers-list h4 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.wager-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+
+.wager-user {
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.wager-option {
+    color: var(--text-secondary);
+}
+
+.wager-amount {
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.wager-delete {
+    background: none;
+    border: none;
+    color: var(--accent-red);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.wager-delete:hover {
+    opacity: 1;
+}
+
+/* ===== 竞猜操作按钮 ===== */
+.bet-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* ===== 无竞猜提示 ===== */
+.no-bet-message {
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+}
+
+.no-bet-message p {
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+/* ===== 排行榜 & 用户卡片 ===== */
+.leaderboard-card,
+.users-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.leaderboard-card h3,
+.users-card h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--accent-gold);
+}
+
+.leaderboard-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    margin-bottom: 8px;
+}
+
+.leaderboard-item:nth-child(1) .leaderboard-rank {
+    background: linear-gradient(135deg, #ffd700, #ffb700);
+    color: #000;
+}
+
+.leaderboard-item:nth-child(2) .leaderboard-rank {
+    background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+    color: #000;
+}
+
+.leaderboard-item:nth-child(3) .leaderboard-rank {
+    background: linear-gradient(135deg, #cd7f32, #a0522d);
+    color: #fff;
+}
+
+.leaderboard-rank {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 12px;
+    background: var(--bg-dark);
+    color: var(--text-muted);
+}
+
+.leaderboard-name {
+    flex: 1;
+    font-weight: 600;
+}
+
+.leaderboard-points {
+    font-weight: 700;
+    color: var(--accent-gold);
+    font-size: 16px;
+}
+
+/* ===== 用户列表 ===== */
+.users-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    margin-bottom: 6px;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.user-points {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.user-delete {
+    background: none;
+    border: none;
+    color: var(--accent-red);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.user-delete:hover {
+    opacity: 1;
+}
+
+/* ===== 历史记录 ===== */
+.history-section {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.history-section h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--accent-gold);
+}
+
+.history-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.history-item {
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    padding: 16px;
+}
+
+.history-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.history-result {
+    font-size: 13px;
+    color: var(--accent-green);
+    margin-bottom: 8px;
+}
+
+.history-details {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* ===== 空消息 ===== */
+.empty-message {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 20px;
+    font-style: italic;
+}
+
+/* ===== 模态框 ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    width: 100%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    animation: modalSlideIn 0.3s ease;
+}
+
+.modal-content.modal-large {
+    max-width: 700px;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    color: var(--accent-gold);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: var(--accent-red);
+}
+
+/* ===== 表单 ===== */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ===== 预设竞猜 ===== */
+.preset-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.preset-bets-container {
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+    padding: 12px;
+}
+
+.preset-bet-item {
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.preset-bet-item:last-child {
+    margin-bottom: 0;
+}
+
+.preset-bet-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.preset-bet-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-purple);
+}
+
+.preset-bet-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.preset-bet-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: 28px;
+}
+
+.preset-option {
+    background: var(--bg-dark);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ===== 分隔线 ===== */
+.form-divider {
+    position: relative;
+    text-align: center;
+    margin: 24px 0;
+}
+
+.form-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.form-divider span {
+    position: relative;
+    background: var(--bg-card);
+    padding: 0 16px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* ===== 选项行 ===== */
+.option-row {
+    display: grid;
+    grid-template-columns: 1fr 100px 40px;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.option-row input {
+    padding: 10px 14px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.option-row input:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+}
+
+/* ===== 结算 ===== */
+.settle-bet-title {
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+    text-align: center;
+}
+
+.settle-option {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: var(--bg-card-hover);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-small);
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.settle-option:hover {
+    border-color: var(--accent-green);
+    background: rgba(6, 214, 160, 0.1);
+}
+
+/* ===== 对赌区域 ===== */
+.duel-section {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+
+.duel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.duel-header h3 {
+    font-size: 18px;
+    color: var(--accent-gold);
+}
+
+.duel-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 16px;
+}
+
+.duel-card {
+    background: var(--bg-card-hover);
+    border-radius: var(--radius-small);
+    padding: 20px;
+    border: 2px solid var(--border-color);
+}
+
+.duel-card-title {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.duel-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.duel-player {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+}
+
+.duel-player-name {
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 6px;
+}
+
+.duel-player-option {
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.duel-player-amount {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.duel-vs-small {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-red);
+}
+
+.duel-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* ===== 创建对赌弹窗 ===== */
+.duel-players {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.duel-player-card {
+    flex: 1;
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+    padding: 16px;
+}
+
+.duel-player-card h4 {
+    font-size: 16px;
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.duel-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent-red);
+    min-width: 50px;
+}
+
+/* ===== 结算对赌信息 ===== */
+.duel-settle-info {
+    background: var(--bg-dark);
+    border-radius: var(--radius-small);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.duel-settle-players {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.duel-settle-player {
+    padding: 8px;
+}
+
+.duel-settle-player-name {
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.duel-settle-player-bet {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* ===== 滚动条 ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-purple);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .wager-form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .wager-form-row .btn {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 12px;
+    }
+
+    .bet-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .option-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .wager-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .wager-form-row .btn {
+        grid-column: 1;
+    }
+}

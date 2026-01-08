@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 玩家端 - 对战竞猜平台</title>
+    <link rel="stylesheet" href="/client/shared/common.css">
+    <link rel="stylesheet" href="/client/player/player.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Join Room View -->
+        <div id="joinView" class="view">
+            <div class="join-room-container">
+                <h1>🎮 对战竞猜平台</h1>
+                <h2>玩家入口</h2>
+                <div class="form-group">
+                    <label class="form-label">房间码</label>
+                    <input type="text" id="roomCodeInput" class="form-input" placeholder="输入6位房间码" maxlength="6" style="text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">你的昵称</label>
+                    <input type="text" id="playerName" class="form-input" placeholder="输入你的昵称">
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" onclick="joinRoom()">
+                    🚪 加入房间
+                </button>
+            </div>
+        </div>
+
+        <!-- Game View -->
+        <div id="gameView" class="view" style="display: none;">
+            <!-- Header -->
+            <div class="header">
+                <h1>🎮 对战竞猜</h1>
+                <div class="header-info">
+                    <span class="header-badge">房间: <strong id="displayRoomCode">------</strong></span>
+                    <span class="header-badge">💰 积分: <strong id="myPoints">1000</strong></span>
+                    <span class="header-badge" id="myRankBadge">排名: --</span>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-grid">
+                <!-- Left: Betting Area -->
+                <div class="left-panel">
+                    <!-- Current Bet -->
+                    <div class="card" id="bettingCard">
+                        <div class="card-header">
+                            <span class="card-title" id="currentBetTitle">🎯 等待竞猜开始</span>
+                            <span class="status-badge status-idle" id="bettingStatus">等待中</span>
+                        </div>
+                        <div id="bettingContent">
+                            <div class="waiting-state">
+                                <div class="waiting-icon">⏳</div>
+                                <p>等待庄家创建竞猜...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Wager -->
+                    <div class="card" id="myWagerCard" style="display: none;">
+                        <div class="card-header">
+                            <span class="card-title">📝 我的下注</span>
+                        </div>
+                        <div id="myWagerInfo"></div>
+                    </div>
+
+                    <!-- Live Feed -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">📢 实时动态</span>
+                        </div>
+                        <div class="live-feed" id="liveFeed">
+                            <div class="feed-empty">等待活动开始...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Ranking & Stats -->
+                <div class="right-panel">
+                    <!-- My Stats -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">📊 我的战绩</span>
+                        </div>
+                        <div class="my-stats" id="myStats">
+                            <div class="stat-row">
+                                <span>当前积分</span>
+                                <span id="statPoints">1000</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>盈亏</span>
+                                <span id="statProfit">±0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>参与轮次</span>
+                                <span id="statRounds">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>胜率</span>
+                                <span id="statWinRate">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ranking -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🏆 排行榜</span>
+                        </div>
+                        <div class="ranking-list" id="rankingList">
+                            <div class="empty-state">
+                                <p>暂无排名数据</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result View -->
+        <div id="resultView" class="view" style="display: none;">
+            <div class="card result-card">
+                <div id="resultContent"></div>
+                <button class="btn btn-primary btn-lg" onclick="dismissResult()">继续</button>
+            </div>
+        </div>
+
+        <!-- Final View -->
+        <div id="finalView" class="view" style="display: none;">
+            <div class="card">
+                <div class="final-header">
+                    <h2>🏁 本场游戏结束！</h2>
+                </div>
+                <div id="finalResult"></div>
+                <table class="ranking-table" id="finalRankingTable"></table>
+                <div class="flex-center" style="margin-top: 24px;">
+                    <button class="btn btn-primary btn-lg" onclick="location.reload()">🚪 返回首页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/shared/socket-client.js"></script>
+    <script src="/client/shared/utils.js"></script>
+    <script src="/client/player/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+/**
+ * Dealer Client Styles
+ */
+
+/* Create Room View */
+.create-room-container {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.create-room-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.create-room-container h2 {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Main Grid Layout */
+.main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-lg);
+}
+
+@media (max-width: 1024px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Bet Stats */
+.bet-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin: var(--spacing-md) 0;
+}
+
+/* Option Distribution */
+.option-distribution {
+    margin-bottom: var(--spacing-md);
+}
+
+.option-bar {
+    margin-bottom: var(--spacing-sm);
+}
+
+.option-bar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.option-bar-name {
+    font-weight: 500;
+}
+
+.option-bar-odds {
+    color: var(--accent-warning);
+}
+
+.option-bar-amount {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Player Card Extended */
+.player-card {
+    position: relative;
+}
+
+.player-status {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.player-status.online {
+    background: var(--accent-success);
+}
+
+.player-status.offline {
+    background: var(--accent-warning);
+}
+
+/* Preset Bet Item */
+.preset-bet-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.preset-bet-item:hover {
+    background: var(--bg-hover);
+}
+
+.preset-bet-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: var(--spacing-md);
+}
+
+.preset-bet-title {
+    font-weight: 500;
+    flex: 1;
+}
+
+.preset-bet-options {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.preset-option {
+    background: var(--bg-secondary);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Settle Option */
+.settle-option {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    width: 100%;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.settle-option:hover {
+    border-color: var(--accent-success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.settle-option-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.settle-option-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* History Item */
+.history-item {
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.history-title {
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.history-result {
+    color: var(--accent-success);
+    margin-bottom: var(--spacing-xs);
+}
+
+.history-details {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Wager Item in Feed */
+.wager-feed-item {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease;
+}
+
+.wager-feed-item:last-child {
+    border-bottom: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Current Bet Display */
+.current-bet-display {
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.current-bet-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Final Stats */
+#finalStats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.final-stat {
+    text-align: center;
+}
+
+.final-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+.final-stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}

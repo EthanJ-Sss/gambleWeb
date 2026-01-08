@@ -1,0 +1,295 @@
+{
+  "SS7JH6": {
+    "id": "3ca41791-35e3-48b6-8087-4c0103707360",
+    "code": "SS7JH6",
+    "dealerId": "nT67F3xF5yn3SpSLAAAB",
+    "dealerName": "庄家",
+    "status": "active",
+    "bettingPhase": "idle",
+    "players": [
+      {
+        "id": "3a4b54e2-83c5-4bad-9b71-bad5913e403d",
+        "name": "ez",
+        "points": 1045,
+        "initialPoints": 1000,
+        "status": "online",
+        "joinedAt": "2026-01-08T08:43:40.684Z",
+        "lastActiveAt": "2026-01-08T08:44:03.249Z",
+        "stats": {
+          "roundsPlayed": 1,
+          "roundsWon": 1,
+          "totalWagered": 300,
+          "totalWon": 345,
+          "totalLost": 0,
+          "netProfit": 45,
+          "winRate": 1
+        }
+      },
+      {
+        "id": "e3d3bfa3-5d15-4010-a475-76680ab6b3e8",
+        "name": "bf",
+        "points": 700,
+        "initialPoints": 1000,
+        "status": "online",
+        "joinedAt": "2026-01-08T08:47:02.420Z",
+        "lastActiveAt": "2026-01-08T08:47:05.891Z",
+        "stats": {
+          "roundsPlayed": 1,
+          "roundsWon": 0,
+          "totalWagered": 300,
+          "totalWon": 0,
+          "totalLost": 300,
+          "netProfit": -300,
+          "winRate": 0
+        }
+      }
+    ],
+    "currentRound": 2,
+    "currentBet": null,
+    "history": [
+      {
+        "id": 1767861021749,
+        "roundNumber": 1,
+        "stageId": 1,
+        "stageName": "第1关 - 白菜人",
+        "title": "第1关 - 白菜人 - 胜负",
+        "options": [
+          {
+            "id": 1,
+            "name": "玩家胜利",
+            "odds": 1.15,
+            "totalAmount": 300,
+            "wagerCount": 1
+          },
+          {
+            "id": 2,
+            "name": "玩家失败",
+            "odds": 5,
+            "totalAmount": 0,
+            "wagerCount": 0
+          }
+        ],
+        "winningOptionId": 1,
+        "winningOptionName": "玩家胜利",
+        "totalWagered": 300,
+        "totalPayout": 345,
+        "results": [
+          {
+            "playerId": "3a4b54e2-83c5-4bad-9b71-bad5913e403d",
+            "playerName": "ez",
+            "optionId": 1,
+            "optionName": "玩家胜利",
+            "amount": 300,
+            "won": true,
+            "payout": 345,
+            "profit": 45,
+            "newPoints": 1045,
+            "newRank": 1
+          }
+        ],
+        "createdAt": "2026-01-08T08:43:50.760Z",
+        "settledAt": "2026-01-08T08:44:15.595Z"
+      },
+      {
+        "id": 1767861021750,
+        "roundNumber": 2,
+        "stageId": 2,
+        "stageName": "第2关 - 霸王龙",
+        "title": "第2关 - 霸王龙 - 胜负",
+        "options": [
+          {
+            "id": 1,
+            "name": "玩家胜利",
+            "odds": 1.35,
+            "totalAmount": 300,
+            "wagerCount": 1
+          },
+          {
+            "id": 2,
+            "name": "玩家失败",
+            "odds": 3,
+            "totalAmount": 0,
+            "wagerCount": 0
+          }
+        ],
+        "winningOptionId": 2,
+        "winningOptionName": "玩家失败",
+        "totalWagered": 300,
+        "totalPayout": 0,
+        "results": [
+          {
+            "playerId": "e3d3bfa3-5d15-4010-a475-76680ab6b3e8",
+            "playerName": "bf",
+            "optionId": 1,
+            "optionName": "玩家胜利",
+            "amount": 300,
+            "won": false,
+            "payout": 0,
+            "profit": -300,
+            "newPoints": 700,
+            "newRank": 2
+          }
+        ],
+        "createdAt": "2026-01-08T08:44:23.447Z",
+        "settledAt": "2026-01-08T08:47:25.980Z"
+      }
+    ],
+    "stats": {
+      "totalRounds": 2,
+      "totalWagered": 600,
+      "totalPayout": 345,
+      "startTime": "2026-01-08T08:43:00.188Z",
+      "endTime": null
+    },
+    "createdAt": "2026-01-08T08:43:00.188Z",
+    "updatedAt": "2026-01-08T08:47:25.980Z"
+  },
+  "S7T2GP": {
+    "id": "9bf71be2-857b-4a57-9a99-ea6d7bbed66f",
+    "code": "S7T2GP",
+    "dealerId": "qjHC_B-3u869qQFTAAAH",
+    "dealerName": "庄家",
+    "status": "active",
+    "bettingPhase": "idle",
+    "players": [
+      {
+        "id": "56857fad-6906-4475-9530-61153a04b606",
+        "name": "bf",
+        "points": 1850,
+        "initialPoints": 1000,
+        "status": "online",
+        "joinedAt": "2026-01-08T08:55:08.856Z",
+        "lastActiveAt": "2026-01-08T08:55:58.269Z",
+        "stats": {
+          "roundsPlayed": 3,
+          "roundsWon": 1,
+          "totalWagered": 900,
+          "totalWon": 1750,
+          "totalLost": 400,
+          "netProfit": 850,
+          "winRate": 0.3333333333333333
+        }
+      },
+      {
+        "id": "32740c26-aebd-4b58-aec6-3c5478f539d8",
+        "name": "ez",
+        "points": 429,
+        "initialPoints": 1000,
+        "status": "offline",
+        "joinedAt": "2026-01-08T08:55:28.343Z",
+        "lastActiveAt": "2026-01-08T08:56:49.670Z",
+        "stats": {
+          "roundsPlayed": 3,
+          "roundsWon": 1,
+          "totalWagered": 800,
+          "totalWon": 229,
+          "totalLost": 600,
+          "netProfit": -571,
+          "winRate": 0.3333333333333333
+        }
+      }
+    ],
+    "currentRound": 1,
+    "currentBet": null,
+    "history": [
+      {
+        "roundNumber": 1,
+        "bets": [
+          {
+            "id": 1767862399414,
+            "stageId": 1,
+            "stageName": "第1关 - 白菜人",
+            "title": "胜负",
+            "options": [
+              {
+                "id": 1,
+                "name": "玩家胜利",
+                "odds": 1.15,
+                "totalAmount": 200,
+                "wagerCount": 1
+              },
+              {
+                "id": 2,
+                "name": "玩家失败",
+                "odds": 5,
+                "totalAmount": 200,
+                "wagerCount": 1
+              }
+            ],
+            "winningOptionId": 1,
+            "winningOptionName": "玩家胜利",
+            "totalWagered": 400,
+            "totalPayout": 229,
+            "settledAt": "2026-01-08T08:56:26.101Z"
+          },
+          {
+            "id": 1767862399415,
+            "stageId": 1,
+            "stageName": "第1关 - 白菜人",
+            "title": "中毒判定",
+            "options": [
+              {
+                "id": 1,
+                "name": "被毒箭毒到",
+                "odds": 1.3,
+                "totalAmount": 500,
+                "wagerCount": 1
+              },
+              {
+                "id": 2,
+                "name": "全程未中毒",
+                "odds": 3.5,
+                "totalAmount": 500,
+                "wagerCount": 1
+              }
+            ],
+            "winningOptionId": 2,
+            "winningOptionName": "全程未中毒",
+            "totalWagered": 1000,
+            "totalPayout": 1750,
+            "settledAt": "2026-01-08T08:56:30.474Z"
+          },
+          {
+            "id": 1767862399416,
+            "stageId": 1,
+            "stageName": "第1关 - 白菜人",
+            "title": "无伤通关",
+            "options": [
+              {
+                "id": 1,
+                "name": "完成无伤",
+                "odds": 4,
+                "totalAmount": 0,
+                "wagerCount": 0
+              },
+              {
+                "id": 2,
+                "name": "受到伤害",
+                "odds": 1.25,
+                "totalAmount": 300,
+                "wagerCount": 2
+              }
+            ],
+            "winningOptionId": 1,
+            "winningOptionName": "完成无伤",
+            "totalWagered": 300,
+            "totalPayout": 0,
+            "settledAt": "2026-01-08T08:56:32.881Z"
+          }
+        ],
+        "createdAt": "2026-01-08T08:55:34.648Z",
+        "settledAt": "2026-01-08T08:56:32.881Z"
+      }
+    ],
+    "stats": {
+      "totalRounds": 1,
+      "totalWagered": 1700,
+      "totalPayout": 1979,
+      "startTime": "2026-01-08T08:54:48.031Z",
+      "endTime": null
+    },
+    "createdAt": "2026-01-08T08:54:48.031Z",
+    "updatedAt": "2026-01-08T08:56:49.670Z",
+    "currentBets": []
+  }
+}

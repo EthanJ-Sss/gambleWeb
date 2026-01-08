@@ -141,7 +141,9 @@ function registerEventHandlers() {
                     option.wagerCount = (option.wagerCount || 0) + 1;
                 }
             }
-            renderBetting();
+            
+            // 使用增量更新代替完整刷新，避免中断用户输入
+            updateBettingStats();
             
             if (data.wager.playerName !== myPlayer?.name) {
                 addFeedItem(`${data.wager.playerName} 押注「${data.wager.optionName}」${formatNumber(data.wager.amount)}分`, 'wager');
@@ -300,6 +302,46 @@ function renderBetting() {
     renderMyWagers();
 }
 
+// 根据玩家积分动态计算快捷金额档位
+function getQuickAmounts(points) {
+    if (points <= 0) return [];
+    
+    // 计算合理的档位：10%, 25%, 50%, 全押
+    const tier1 = Math.max(10, Math.floor(points * 0.1));
+    const tier2 = Math.max(25, Math.floor(points * 0.25));
+    const tier3 = Math.max(50, Math.floor(points * 0.5));
+    
+    // 去重并排序，确保金额递增且不超过积分
+    const amounts = [...new Set([tier1, tier2, tier3])]
+        .filter(a => a <= points && a > 0)
+        .sort((a, b) => a - b);
+    
+    // 确保至少有一个选项
+    if (amounts.length === 0) {
+        amounts.push(points);
+    }
+    
+    return amounts;
+}
+
+// 增量更新投注统计，不影响用户输入
+function updateBettingStats() {
+    const bets = roomState.currentBets || [];
+    
+    bets.forEach(bet => {
+        bet.options.forEach(opt => {
+            // 只更新统计数字，不重建整个DOM
+            const optionEl = document.querySelector(`.betting-option[data-bet-id="${bet.id}"][data-option-id="${opt.id}"]`);
+            if (optionEl) {
+                const statsEl = optionEl.querySelector('.option-stats');
+                if (statsEl) {
+                    statsEl.textContent = `${formatNumber(opt.totalAmount || 0)}分 (${opt.wagerCount || 0}人)`;
+                }
+            }
+        });
+    });
+}
+
 // Render a single bet
 function renderSingleBet(bet) {
     const myWager = myCurrentWagers[bet.id];
@@ -316,7 +358,9 @@ function renderSingleBet(bet) {
     `;
     
     if (bet.status === 'open' && !myWager) {
-        // Can bet
+        // Can bet - 使用动态金额档位
+        const quickAmounts = getQuickAmounts(myPlayer.points);
+        
         betHTML += `
             <div class="betting-options" data-bet-id="${bet.id}">
                 ${bet.options.map(opt => {
@@ -338,10 +382,10 @@ function renderSingleBet(bet) {
                     <input type="number" id="wagerAmount-${bet.id}" class="form-input" placeholder="输入积分" min="1" max="${myPlayer.points}" oninput="updateExpectedPayoutFor(${bet.id})">
                 </div>
                 <div class="quick-amounts">
-                    <button class="quick-amount-btn" onclick="setAmountFor(${bet.id}, 100)">100</button>
-                    <button class="quick-amount-btn" onclick="setAmountFor(${bet.id}, 200)">200</button>
-                    <button class="quick-amount-btn" onclick="setAmountFor(${bet.id}, 500)">500</button>
-                    <button class="quick-amount-btn" onclick="setAmountFor(${bet.id}, ${myPlayer.points})">全押</button>
+                    ${quickAmounts.map(amount => 
+                        `<button class="quick-amount-btn" onclick="setAmountFor(${bet.id}, ${amount})">${formatNumber(amount)}</button>`
+                    ).join('')}
+                    <button class="quick-amount-btn all-in" onclick="setAmountFor(${bet.id}, ${myPlayer.points})">全押</button>
                 </div>
                 <div class="expected-payout" id="expectedPayout-${bet.id}">选择金额查看预计收益</div>
                 <button class="btn btn-success btn-lg btn-block" onclick="placeWagerFor(${bet.id})">✅ 确认下注</button>
